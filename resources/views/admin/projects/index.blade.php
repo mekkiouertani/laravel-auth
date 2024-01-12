@@ -11,7 +11,7 @@
         <table class="table table table-striped mt-5">
             <thead>
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="col"></th>
                     <th scope="col">Title</th>
                     <th scope="col">Actions</th>
                 </tr>
@@ -28,8 +28,8 @@
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-danger cancel-button">Delete</button>
+                            </form>
                         </td>
-                        </form>
                     </tr>
                 @endforeach
             </tbody>
