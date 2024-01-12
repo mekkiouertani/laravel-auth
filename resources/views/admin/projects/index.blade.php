@@ -23,8 +23,13 @@
                                     class="fa-regular fa-eye"></i> </a></th>
                         <td> {{ $project->title }}</td>
                         <td> <a href="{{ route('admin.projects.edit', $project->id) }}" class="btn btn-warning">Edit</a>
-                            <a href="{{ route('admin.projects.destroy', $project->id) }}" class="btn btn-danger">Delete</a>
+                            <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST"
+                                class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger cancel-button">Delete</button>
                         </td>
+                        </form>
                     </tr>
                 @endforeach
             </tbody>
@@ -33,4 +38,5 @@
             <a class="text-white text-decoration-none" href="{{ route('admin.projects.create') }}">Create</a>
         </button>
     </section>
+    @include('partials.modal_delete')
 @endsection
