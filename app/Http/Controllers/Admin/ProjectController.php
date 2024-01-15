@@ -35,19 +35,19 @@ class ProjectController extends Controller
     public function store(StoreProjectRequest $request)
     {
         $formData = $request->validated();
-        $slug = Str::slug($formData['title'], '-');
+        $slug = Project::getSlug($formData['title']);
         $formData['slug'] = $slug;
         $userId = Auth::id();
         $formData['user_id'] = $userId;
 
         if ($request->hasFile('image')) {
-            $path = Storage::put('images', $request->image);
+            $path = Storage::put('images', $formData['image']);
             $formData['image'] = $path;
         }
-        dd($path);
+        //dd($path);
 
         $project = Project::create($formData);
-        return redirect()->route('admin.projects.show', $project->id);
+        return redirect()->route('admin.projects.show', $project->slug);
     }
 
     /**
@@ -72,7 +72,9 @@ class ProjectController extends Controller
     public function update(UpdateProjectRequest $request, Project $project)
     {
         $formData = $request->validated();
-        $slug = Str::slug($formData['title'], '-');
+        if ($project->title !== $formData['title']) {
+            $slug = Project::getSlug($formData['title']);
+        }
         $formData['slug'] = $slug;
         $formData['user_id'] = $project->user_id;
 
@@ -85,7 +87,7 @@ class ProjectController extends Controller
         }
 
         $project->update($formData);
-        return redirect()->route('admin.projects.show', $project->id);
+        return redirect()->route('admin.projects.show', $project->slug);
     }
 
     /**

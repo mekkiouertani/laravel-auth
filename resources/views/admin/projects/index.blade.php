@@ -19,11 +19,14 @@
             <tbody>
                 @foreach ($projects as $project)
                     <tr>
-                        <th scope="row"> <a href="{{ route('admin.projects.show', $project->slug) }}">
-                                <i class="fa-regular fa-eye"></i> </a></th>
+                        <th scope="row">
+                            <a href="{{ route('admin.projects.show', $project->slug) }}">
+                                <i class="fa-regular fa-eye"></i>
+                            </a>
+                        </th>
                         <td> {{ $project->title }}</td>
-                        <td> <a href="{{ route('admin.projects.edit', $project->id) }}" class="btn btn-warning">Edit</a>
-                            <form action="{{ route('admin.projects.destroy', $project->id) }}" method="POST"
+                        <td> <a href="{{ route('admin.projects.edit', $project->slug) }}" class="btn btn-warning">Edit</a>
+                            <form action="{{ route('admin.projects.destroy', $project->slug) }}" method="POST"
                                 class="d-inline">
                                 @csrf
                                 @method('DELETE')

@@ -24,7 +24,7 @@ class StoreProjectRequest extends FormRequest
         return [
             'title' => ['required', 'min:3', 'max:200', 'unique:projects'],
             'body' => ['nullable'],
-            'image' => ['nullable', 'url', 'image' . 'max:1024'],
+            'image' => ['nullable', 'image'],
         ];
     }
     public function messages()
@@ -36,7 +36,7 @@ class StoreProjectRequest extends FormRequest
             'title.max' => 'Il titolo non deve superare i :max caratteri',
             'image.url' => 'Il link immagine non è valido',
             'image.image' => 'L\'immagine deve essere un\'immagine',
-            'image.max' => 'L\'immagine deve essere massimo :max MB',
+            //'image.max' => 'L\'immagine deve essere massimo :max MB',
         ];
     }
 }

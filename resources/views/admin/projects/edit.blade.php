@@ -2,7 +2,7 @@
 @section('content')
     <section class="container">
         <h1>Edit {{ $project->title }} </h1>
-        <form action="{{ route('admin.projects.update', $project->id) }}" enctype="multipart/form-data" method="POST">
+        <form action="{{ route('admin.projects.update', $project->slug) }}" enctype="multipart/form-data" method="POST">
             @csrf
             @method('PUT')
             <div class="mb-3">
@@ -23,6 +23,10 @@
                 @error('body')
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
+            </div>
+            {{-- PREVIEW  --}}
+            <div>
+                <img id="uploadPreview" width="100" src="https://via.placeholder.com/300x200" alt="preview">
             </div>
             {{-- IMAGE --}}
             <div class="mb-3">
