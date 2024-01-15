@@ -8,6 +8,7 @@ use App\Http\Requests\UpdateProjectRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -38,6 +39,13 @@ class ProjectController extends Controller
         $formData['slug'] = $slug;
         $userId = Auth::id();
         $formData['user_id'] = $userId;
+
+        if ($request->hasFile('image')) {
+            $path = Storage::put('images', $request->image);
+            $formData['image'] = $path;
+        }
+        dd($path);
+
         $project = Project::create($formData);
         return redirect()->route('admin.projects.show', $project->id);
     }
@@ -67,6 +75,15 @@ class ProjectController extends Controller
         $slug = Str::slug($formData['title'], '-');
         $formData['slug'] = $slug;
         $formData['user_id'] = $project->user_id;
+
+        if ($request->hasFile('image')) {
+            if ($project->image) {
+                Storage::delete($project->image);
+            }
+            $path = Storage::put('images', $request->image);
+            $formData['image'] = $path;
+        }
+
         $project->update($formData);
         return redirect()->route('admin.projects.show', $project->id);
     }
@@ -76,6 +93,9 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        if ($project->image) {
+            Storage::delete($project->image);
+        }
         $project->delete();
         return to_route('admin.projects.index')->with('message', "Il Progetto '$project->title' è stato  eliminato");
     }

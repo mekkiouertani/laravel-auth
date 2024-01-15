@@ -3,6 +3,8 @@
     <section class="container">
         <h1>{{ $project->title }}</h1>
         <p>{!! $project->body !!}</p>
+        <img class="w-25 d-block mb-5" src="{{ asset('storage/' . $project->image) }}" alt="{{ $project->title }}">
+
 
         <button class="btn btn-primary d-inline-block">
             <a class="text-white text-decoration-none" href="{{ route('admin.projects.edit', $project->id) }}">Edit</a>

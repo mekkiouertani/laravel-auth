@@ -206,3 +206,13 @@ Route::fallback(function() {
 });
 
 ```
+
+## FILE STORAGE
+
+-   Aprire il file end e modificare il fileSYSTEM IN public
+
+# AVVIARE IL SERVER
+
+```bash
+php -S localhost:8000 -t public/
+```

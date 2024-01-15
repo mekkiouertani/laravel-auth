@@ -23,13 +23,14 @@ class UpdateProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required','min:3', 'max:200', Rule::unique('projects')->ignore($this->project)],
+            'title' => ['required', 'min:3', 'max:200', Rule::unique('projects')->ignore($this->project)],
             'body' => ['nullable'],
-            'image' => ['nullable', 'url'],
+            'image' => ['nullable', 'image'],
         ];
     }
 
-    public function messages(){
+    public function messages()
+    {
         return [
             'title.unique' => 'Il titolo deve essere univoco',
             'title.required' => 'Il titolo è obbligatorio',
