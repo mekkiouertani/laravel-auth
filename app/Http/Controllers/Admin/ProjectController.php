@@ -74,8 +74,8 @@ class ProjectController extends Controller
         $formData = $request->validated();
         if ($project->title !== $formData['title']) {
             $slug = Project::getSlug($formData['title']);
+            $formData['slug'] = $slug;
         }
-        $formData['slug'] = $slug;
         $formData['user_id'] = $project->user_id;
 
         if ($request->hasFile('image')) {
