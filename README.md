@@ -209,7 +209,7 @@ Route::fallback(function() {
 
 ## FILE STORAGE
 
-```
+```bash
 # In config/filestystems.php
 # Caricheremo i nostri file nella cartella storage/app/public
 # modifichiamo quindi e volendo anche env file modifica chiave FILESYSTEM_DRIVER=public
@@ -228,6 +228,32 @@ Storage::put('nomecartella', $data['image']); //ritorna il path
 Route::fallback(function() {
     return redirect()->route('admin.dashboard');
 });
+```
+
+# MIGRATION DI ESEMPIO
+
+```bash
+#prima creare il campo se non esiste già
+Schema::table('projects', function (Blueprint table))
+
+# UPDATE
+    public function up(): void
+    {
+        Schema::table('projects', function (Blueprint $table) {
+            $table->foreign('user_id')
+            ->references('id')
+            ->on('users')->cascadeOnDelete();
+        });
+    }
+
+#down
+    public function down(): void
+    {
+        Schema::table('projects', function (Blueprint $table) {
+            $table->dropForeignKey('projects_user_id_foreign');
+        });
+    }
+};
 ```
 
 # AVVIARE IL SERVER
