@@ -32,9 +32,9 @@ class ProjectSeeder extends Seeder
         $url = $image;
         $contents = file_get_contents($url);
 
-        $title = Str::slug($title, '-') . '*';
-        $path = 'imgages/' . $title;
-        Storage::put('images' . $title, $contents);
+        $title = Str::slug($title, '-') . '.jpg';
+        $path = 'images/' . $title;
+        Storage::put('images/' . $title, $contents);
         return $path;
     }
 }
