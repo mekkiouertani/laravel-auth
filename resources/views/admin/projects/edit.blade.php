@@ -24,22 +24,35 @@
                     <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
-            {{-- PREVIEW  --}}
-            <div>
-                <img id="uploadPreview" width="100" src="https://via.placeholder.com/300x200" alt="preview">
-            </div>
-            {{-- IMAGE --}}
+            {{-- CATEGORY --}}
             <div class="mb-3">
-                <label for="image">Image</label>
-                <input type="file" class="form-control @error('image') is-invalid @enderror" name="image"
-                    id="image" value="{{ old('image', $project->image) }}">
-                @error('image')
-                    <div class="invalid-feedback">{{ $message }}</div>
-                @enderror
-            </div>
-            {{-- BUTTONS --}}
-            <button type="submit" class="btn btn-success">Submit</button>
-            <button type="reset" class="btn btn-primary">Reset</button>
+                <label for="category_id">Select Category</label>
+                <select type="text" class="form-control @error('category_id') is-invalid @enderror" name="category_id"
+                    id="category_id">
+                    <option value="">Select a category</option>
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}"
+                            {{ old('category_id', $project->category_id) == 'category_id' ? 'selected' : '' }}>
+                            {{ $category->name }}
+                        </option>
+                    @endforeach
+                </select>
+                {{-- PREVIEW  --}}
+                <div>
+                    <img id="uploadPreview" width="100" src="https://via.placeholder.com/300x200" alt="preview">
+                </div>
+                {{-- IMAGE --}}
+                <div class="mb-3">
+                    <label for="image">Image</label>
+                    <input type="file" class="form-control @error('image') is-invalid @enderror" name="image"
+                        id="image" value="{{ old('image', $project->image) }}">
+                    @error('image')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+                {{-- BUTTONS --}}
+                <button type="submit" class="btn btn-success">Submit</button>
+                <button type="reset" class="btn btn-primary">Reset</button>
         </form>
     </section>
 @endsection
